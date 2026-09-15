@@ -17,3 +17,4 @@ CREATE TABLE IF NOT EXISTS contracts (
 
 UPDATE settings SET value='0586526117' WHERE key_name='hotline';
 UPDATE settings SET value='https://zalo.me/0586526117' WHERE key_name='zalo';
+INSERT INTO settings(key_name,value) VALUES ('office_address','[Điền địa chỉ văn phòng của bạn]'),('business_license','Mã số doanh nghiệp: 0101234567 - Sở KH&ĐT cấp ngày 10/01/2020') ON DUPLICATE KEY UPDATE value=value;

@@ -1,1 +1,1 @@
-<?php require __DIR__.'/../includes/bootstrap.php'; require_admin(); header('Location: index.php?tab=leads'); exit;
+<?php require_once __DIR__.'/auth.php'; header('Location: index.php?tab=leads'); exit;

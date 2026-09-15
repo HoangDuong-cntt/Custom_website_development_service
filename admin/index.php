@@ -6,8 +6,11 @@ $notice = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && verify_csrf()) {
     $action = $_POST['action'] ?? '';
     if ($action === 'lead') {
-        $pdo->prepare('UPDATE leads SET status=?,note=? WHERE id=?')->execute([$_POST['status'], $_POST['note'], (int)$_POST['id']]);
-        $notice = 'Đã cập nhật lead.';
+        $allowedStatuses = ['New', 'In-progress', 'Completed', 'Cancelled', 'Closed_Won'];
+        if (in_array($_POST['status'] ?? '', $allowedStatuses, true)) {
+            $pdo->prepare('UPDATE leads SET status=?,note=? WHERE id=?')->execute([$_POST['status'], trim($_POST['note'] ?? ''), (int)$_POST['id']]);
+            $notice = 'Đã cập nhật lead.';
+        }
     }
     if ($action === 'delete_template') {
         $pdo->prepare('DELETE FROM templates WHERE id=?')->execute([(int)$_POST['id']]);
@@ -78,7 +81,7 @@ $settings = $pdo->query('SELECT * FROM settings')->fetchAll(); ?>
                     $q = 'SELECT * FROM leads' . ($filter !== '' ? ' WHERE status=?' : '') . ' ORDER BY created_at DESC';
                     $s = $pdo->prepare($q);
                     $s->execute($filter !== '' ? [$filter] : []); ?><form class="mb-3"><input type="hidden" name="tab" value="leads"><select name="status" onchange="this.form.submit()" class="form-select w-auto">
-                            <option value="">Tất cả trạng thái</option><?php foreach (['New', 'In-progress', 'Completed', 'Cancelled'] as $x): ?><option <?= $filter === $x ? 'selected' : '' ?>><?= $x ?></option><?php endforeach ?>
+                            <option value="">Tất cả trạng thái</option><?php foreach (['New', 'In-progress', 'Completed', 'Cancelled', 'Closed_Won'] as $x): ?><option value="<?= $x ?>" <?= $filter === $x ? 'selected' : '' ?>><?= $x === 'Closed_Won' ? 'Đã chốt' : $x ?></option><?php endforeach ?>
                         </select></form>
                     <div class="table-responsive">
                         <table class="table align-middle">
@@ -95,7 +98,7 @@ $settings = $pdo->query('SELECT * FROM settings')->fetchAll(); ?>
                                         <td><?= e($l['service_type']) ?><br><small><?= e($l['budget']) ?></small></td>
                                         <td><?= e($l['created_at']) ?></td>
                                         <td>
-                                            <form method="post" class="d-flex gap-1"><input type="hidden" name="csrf" value="<?= csrf() ?>"><input type="hidden" name="action" value="lead"><input type="hidden" name="id" value="<?= $l['id'] ?>"><select name="status" class="form-select form-select-sm"><?php foreach (['New', 'In-progress', 'Completed', 'Cancelled'] as $x): ?><option <?= $l['status'] === $x ? 'selected' : '' ?>><?= $x ?></option><?php endforeach ?></select><input name="note" value="<?= e($l['note']) ?>" class="form-control form-control-sm" placeholder="Ghi chú"><button class="btn btn-sm btn-primary">Lưu</button></form>
+                                            <form method="post" class="d-flex gap-1"><input type="hidden" name="csrf" value="<?= csrf() ?>"><input type="hidden" name="action" value="lead"><input type="hidden" name="id" value="<?= $l['id'] ?>"><select name="status" class="form-select form-select-sm"><?php foreach (['New', 'In-progress', 'Completed', 'Cancelled', 'Closed_Won'] as $x): ?><option value="<?= $x ?>" <?= $l['status'] === $x ? 'selected' : '' ?>><?= $x === 'Closed_Won' ? 'Đã chốt' : $x ?></option><?php endforeach ?></select><input name="note" value="<?= e($l['note']) ?>" class="form-control form-control-sm" placeholder="Ghi chú"><button class="btn btn-sm btn-primary">Lưu</button></form><?php if($l['status']==='Closed_Won'): ?><a class="btn btn-sm btn-success mt-1" href="contracts.php?lead_id=<?=$l['id']?>">Tạo hợp đồng</a><?php endif ?>
                                         </td>
                                     </tr><?php endforeach ?></tbody>
                         </table>

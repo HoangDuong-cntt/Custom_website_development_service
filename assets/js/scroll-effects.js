@@ -56,9 +56,10 @@
         heading.appendChild(span);
       });
       gsap.fromTo(heading.querySelectorAll('.split-word'),
-        { yPercent: 110, opacity: 0 },
+        { yPercent: 110, rotateX: -90, transformPerspective: 700, opacity: 0 },
         {
           yPercent: 0,
+          rotateX: 0,
           opacity: 1,
           duration: 0.7,
           stagger: 0.045,
@@ -110,6 +111,19 @@
           ease: 'power3.out',
           scrollTrigger: { trigger: priceSection, start: 'top 72%', once: true }
         });
+    }
+
+    const processSection = document.querySelector('[data-process-section]');
+    const processSteps = processSection?.querySelectorAll('[data-process-step]');
+    if (processSection && processSteps?.length) {
+      gsap.fromTo(processSteps,
+        { y: 90, z: -120, rotateX: -28, opacity: 0, transformPerspective: 900 },
+        {
+          y: 0, z: 0, rotateX: 0, opacity: 1,
+          duration: .9, stagger: .14, ease: 'back.out(1.35)',
+          scrollTrigger: { trigger: processSection, start: 'top 74%', once: true }
+        }
+      );
     }
 
     document.querySelectorAll('[data-parallax-image]').forEach((image) => {

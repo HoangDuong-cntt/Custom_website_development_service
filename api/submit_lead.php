@@ -6,6 +6,19 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit(json_encode(['ok' => false, 'message' => 'Phương thức không hợp lệ.']));
 }
 
+if (!verify_csrf()) {
+    http_response_code(419);
+    exit(json_encode(['ok' => false, 'message' => 'Phiên biểu mẫu đã hết hạn. Vui lòng tải lại trang.']));
+}
+if (!empty($_POST['website'])) {
+    http_response_code(400);
+    exit(json_encode(['ok' => false, 'message' => 'Yêu cầu không hợp lệ.']));
+}
+if (!empty($_SESSION['lead_submitted_at']) && time() - (int)$_SESSION['lead_submitted_at'] < 20) {
+    http_response_code(429);
+    exit(json_encode(['ok' => false, 'message' => 'Bạn vừa gửi yêu cầu. Vui lòng thử lại sau ít phút.']));
+}
+
 $fullname = trim($_POST['fullname'] ?? '');
 $phone = trim($_POST['phone'] ?? '');
 $email = trim($_POST['email'] ?? '');
@@ -14,6 +27,7 @@ if ($fullname === '' || $phone === '' || ($email !== '' && !filter_var($email, F
 }
 db()->prepare('INSERT INTO leads(fullname,phone,email,service_type,budget,note) VALUES(?,?,?,?,?,?)')
     ->execute([$fullname, $phone, $email ?: null, trim($_POST['service_type'] ?? ''), trim($_POST['budget'] ?? ''), trim($_POST['note'] ?? '')]);
+$_SESSION['lead_submitted_at'] = time();
 
 // Email is optional: a delivery issue must never prevent the lead from being saved.
 if ($email !== '') {

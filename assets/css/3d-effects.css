@@ -1,0 +1,23 @@
+:root {
+    --motion-perspective: 1100px;
+    --motion-glow: rgba(74, 144, 255, .34);
+}
+
+.hero-scene { position: relative; isolation: isolate; overflow: hidden; }
+.hero-scene::after { content: ''; position: absolute; inset: auto 8% 8% auto; width: 24rem; height: 24rem; border: 1px solid rgba(255,255,255,.16); border-radius: 50%; transform: translateZ(-1px); pointer-events: none; }
+.hero-3d-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: .9; z-index: -1; }
+[data-tilt] { transform-style: preserve-3d; perspective: var(--motion-perspective); will-change: transform; transition: transform .18s ease, box-shadow .18s ease; }
+[data-process-section] { perspective: 1100px; }
+[data-process-step] { transform-style: preserve-3d; will-change: transform, opacity; }
+[data-tilt]::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), var(--motion-glow), transparent 42%); opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+[data-tilt]:hover::before { opacity: 1; }
+[data-tilt] > * { transform: translateZ(18px); }
+[data-magnetic] { will-change: transform; transition: transform .2s ease; }
+[data-ripple] { position: relative; overflow: hidden; transform: translateZ(0); }
+.motion-ripple { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,.55); transform: translate(-50%, -50%) scale(0); animation: motion-ripple .55s ease-out forwards; pointer-events: none; }
+@keyframes motion-ripple { to { transform: translate(-50%, -50%) scale(22); opacity: 0; } }
+@media (max-width: 991.98px), (prefers-reduced-motion: reduce) {
+    .hero-3d-canvas { display: none; }
+    [data-tilt] > * { transform: none; }
+}
+@media print { .hero-3d-canvas, [data-tilt]::before { display: none; } }

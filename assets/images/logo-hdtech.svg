@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" role="img" aria-labelledby="title desc">
+  <title id="title">HDTECH</title>
+  <desc id="desc">HDTECH technology brand logo</desc>
+  <g fill="#0A3D62">
+    <path d="M8 10h30v35h34V10h30v100H72V72H38v38H8z"/>
+    <path d="M18 75c20-30 44-39 75-49v16c-22 8-39 17-55 39z" fill="#fff"/>
+  </g>
+  <text x="132" y="91" fill="#0A3D62" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="700" letter-spacing="1">DTECH</text>
+</svg>

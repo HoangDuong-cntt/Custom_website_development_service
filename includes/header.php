@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title><?= e($title ?? 'HoangDuongTech — Thiết kế website') ?></title>
+    <link rel="icon" type="image/svg+xml" href="<?= e(SITE_LOGO_FILE) ?>">
+    <link rel="apple-touch-icon" href="<?= e(SITE_LOGO_FILE) ?>">
     <script>
         (() => {
             const savedTheme = localStorage.getItem('hdt-theme');
@@ -48,7 +50,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg bg-white sticky-top border-bottom">
-        <div class="container"><a class="navbar-brand fw-bold text-primary" href="index.php"><i class="bi bi-code-square me-2"></i><?= e($site['site_name'] ?? 'HoangDuongTech') ?></a>
+        <div class="container"><a class="navbar-brand brand-logo" href="index.php" aria-label="HDTECH - Trang chủ"><img src="<?= e(SITE_LOGO_FILE) ?>" alt="HDTECH" class="site-logo site-logo-header"></a>
             <div class="d-flex align-items-center gap-2 order-lg-last"><button type="button" class="theme-toggle" data-theme-toggle onclick="window.hdtToggleTheme()" aria-label="Bật chế độ tối" aria-pressed="false"><i class="bi bi-sun-fill theme-icon theme-icon-sun" aria-hidden="true"></i><i class="bi bi-moon-stars-fill theme-icon theme-icon-moon" aria-hidden="true"></i><span class="visually-hidden">Chuyển đổi giao diện sáng tối</span></button><button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button></div>
             <div id="nav" class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">

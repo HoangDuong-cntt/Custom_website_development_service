@@ -4,6 +4,8 @@ declare(strict_types=1);
 session_set_cookie_params(['httponly' => true, 'samesite' => 'Lax', 'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')]);
 session_start();
 require_once __DIR__ . '/../config/database.php';
+const SITE_LOGO_FILE = 'assets/images/logo-hdtech.svg';
+const SITE_LOGO_PATH = __DIR__ . '/../assets/images/logo-hdtech.svg';
 function e(?string $value): string
 {
     return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');

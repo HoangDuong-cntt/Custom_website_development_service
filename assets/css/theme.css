@@ -28,6 +28,13 @@ body {
     transition: background-color .4s ease-in-out, color .4s ease-in-out;
 }
 
+.brand-logo { display: inline-flex; align-items: center; transition: transform .2s ease; }
+.brand-logo:hover { transform: scale(1.05); }
+.site-logo { display: block; width: auto; object-fit: contain; }
+.site-logo-header { height: 40px; }
+.site-logo-footer { height: 48px; filter: brightness(0) invert(1); }
+.dark .site-logo-header { filter: brightness(0) invert(1); }
+
 body,
 .navbar,
 .card,
@@ -106,6 +113,7 @@ body .text-secondary { color: var(--muted-color) !important; }
 
 @media (max-width: 991.98px) {
     .theme-toggle { margin: 0; }
+    .site-logo-header { height: 28px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

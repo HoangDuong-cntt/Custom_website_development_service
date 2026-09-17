@@ -1,4 +1,10 @@
-<?php require __DIR__ . '/includes/bootstrap.php';
+<?php
+/*
+ * File: thank-you.php
+ * Mục đích: Trang xác nhận form đã được tiếp nhận, dành cho trải nghiệm khách hàng sau khi gửi yêu cầu.
+ * Phần: Public frontend / lead confirmation page.
+ */
+require __DIR__ . '/includes/bootstrap.php';
 $title = 'Cảm ơn bạn — HoangDuongTech';
 require __DIR__ . '/includes/header.php'; ?>
 <main class="bg-light py-5">

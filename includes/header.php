@@ -1,4 +1,10 @@
-<?php $site = settings(); ?>
+<?php
+/*
+ * File: includes/header.php
+ * Mục đích: Render phần đầu trang, favicon, logo và navbar chung của website.
+ * Phần: Frontend layout / shared header.
+ */
+$site = settings(); ?>
 <!doctype html>
 <html lang="vi">
 
@@ -9,6 +15,7 @@
     <link rel="icon" type="image/svg+xml" href="<?= e(SITE_LOGO_FILE) ?>">
     <link rel="apple-touch-icon" href="<?= e(SITE_LOGO_FILE) ?>">
     <script>
+        // Áp dụng theme đã lưu trước khi UI render để tránh nháy màu và flash layout.
         (() => {
             const savedTheme = localStorage.getItem('hdt-theme');
             const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');

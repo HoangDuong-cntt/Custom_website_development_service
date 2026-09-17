@@ -1,11 +1,18 @@
 <?php
+/*
+ * File: api/submit_lead.php
+ * Mục đích: Nhận dữ liệu khách hàng từ form trên landing page, lưu vào database và gửi email xác nhận nếu có cấu hình SMTP.
+ * Phần: API / form processing / lead management.
+ */
 require __DIR__ . '/../includes/bootstrap.php';
 header('Content-Type: application/json; charset=utf-8');
+// Chỉ chấp nhận POST để tránh request giả, spam hoặc lộ dữ liệu bằng GET.
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     exit(json_encode(['ok' => false, 'message' => 'Phương thức không hợp lệ.']));
 }
 
+// Kiểm tra CSRF và honeypot để ngăn request giả mạo hoặc bot tự động.
 if (!verify_csrf()) {
     http_response_code(419);
     exit(json_encode(['ok' => false, 'message' => 'Phiên biểu mẫu đã hết hạn. Vui lòng tải lại trang.']));
@@ -19,17 +26,19 @@ if (!empty($_SESSION['lead_submitted_at']) && time() - (int)$_SESSION['lead_subm
     exit(json_encode(['ok' => false, 'message' => 'Bạn vừa gửi yêu cầu. Vui lòng thử lại sau ít phút.']));
 }
 
+// Xử lý dữ liệu từ form khách hàng: trim, validate số điện thoại và email.
 $fullname = trim($_POST['fullname'] ?? '');
 $phone = trim($_POST['phone'] ?? '');
 $email = trim($_POST['email'] ?? '');
 if ($fullname === '' || $phone === '' || ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL))) {
     exit(json_encode(['ok' => false, 'message' => 'Vui lòng nhập họ tên, số điện thoại và email hợp lệ.']));
 }
+// Lưu lead vào bảng leads. Đây là điểm ghi nhận yêu cầu doanh nghiệp quan trọng.
 db()->prepare('INSERT INTO leads(fullname,phone,email,service_type,budget,note) VALUES(?,?,?,?,?,?)')
     ->execute([$fullname, $phone, $email ?: null, trim($_POST['service_type'] ?? ''), trim($_POST['budget'] ?? ''), trim($_POST['note'] ?? '')]);
 $_SESSION['lead_submitted_at'] = time();
 
-// Email is optional: a delivery issue must never prevent the lead from being saved.
+// Email xác nhận là tùy chọn: lỗi gửi email không được làm mất dữ liệu lead đã lưu.
 if ($email !== '') {
     $mailConfig = require __DIR__ . '/../config/mail.php';
     $autoload = __DIR__ . '/../vendor/autoload.php';

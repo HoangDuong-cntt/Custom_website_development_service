@@ -1,3 +1,8 @@
+/*
+ * File: assets/css/theme.css
+ * Mục đích: Định nghĩa biến màu, dark mode và style chung cho header, logo và theme toggle.
+ * Phần: Frontend styling / visual theme.
+ */
 :root {
     --bg-color: #f5f9ff;
     --text-color: #0b1734;

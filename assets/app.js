@@ -1,4 +1,9 @@
-// Apply the saved theme before other interactions initialize.
+/*
+ * File: assets/app.js
+ * Mục đích: Xử lý giao diện frontend như theme toggle, lọc mẫu web và submit form lead bằng Ajax.
+ * Phần: Frontend interaction / public UI behavior.
+ */
+// Áp dụng theme đã lưu trước khi các tương tác khác chạy để tránh nháy CSS.
 (() => {
 	const root = document.documentElement;
 	const toggle = document.querySelector('[data-theme-toggle]');
@@ -29,5 +34,7 @@
 	}
 })();
 
+// Lọc template theo category khi người dùng bấm nút danh mục.
 document.querySelectorAll('[data-category]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-category]').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.template-item').forEach(x=>x.style.display=(btn.dataset.category==='all'||x.dataset.category===btn.dataset.category)?'block':'none')}));
+// Submit form lead bằng AJAX để người dùng không phải reload trang và có phản hồi ngay.
 const form=document.querySelector('#lead-form');if(form)form.addEventListener('submit',async e=>{e.preventDefault();const out=document.querySelector('#form-result');try{const r=await fetch(form.action,{method:'POST',headers:{'X-Requested-With':'XMLHttpRequest'},body:new FormData(form)}),d=await r.json();if(d.ok){window.showToast?.('Đã gửi yêu cầu thành công!');setTimeout(()=>window.location.replace(d.redirect||'thank-you.php'),450);return}out.className='mt-3 alert alert-danger';out.textContent=d.message||'Không thể gửi yêu cầu.'}catch{out.className='mt-3 alert alert-danger';out.textContent='Có lỗi kết nối, vui lòng thử lại.'}});

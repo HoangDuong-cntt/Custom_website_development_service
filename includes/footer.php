@@ -1,3 +1,10 @@
+<?php
+/*
+ * File: includes/footer.php
+ * Mục đích: Render footer chung và các shortcut liên hệ cuối trang cho giao diện public.
+ * Phần: Frontend layout / footer utilities.
+ */
+?>
 <footer class="bg-dark text-white pt-5 pb-3">
     <div class="container">
         <div class="row g-4">

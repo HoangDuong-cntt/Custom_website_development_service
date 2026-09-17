@@ -1,10 +1,17 @@
 <?php
+/*
+ * File: admin/login.php
+ * Mục đích: Trang đăng nhập quản trị để xác thực admin và cấp quyền truy cập vào dashboard.
+ * Phần: Authentication / admin management.
+ */
 require_once __DIR__ . '/../includes/bootstrap.php';
+// Nếu admin đã đăng nhập, chuyển thẳng đến trang quản lý yêu cầu.
 if (is_admin()) {
     header('Location: leads.php');
     exit;
 }
 $error = '';
+// Xử lý xác thực form: kiểm tra khóa tạm thời, CSRF và mật khẩu người dùng.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_SESSION['login_locked_until']) && time() < (int)$_SESSION['login_locked_until']) {
         $error = 'Có quá nhiều lần đăng nhập thất bại. Vui lòng thử lại sau 5 phút.';

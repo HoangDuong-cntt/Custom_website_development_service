@@ -9,7 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && verify_csrf()) {
         if (in_array($_POST['status'] ?? '', $allowedStatuses, true)) {
             $leadId = (int)$_POST['id'];
             $pdo->prepare('UPDATE leads SET status=?,note=? WHERE id=?')->execute([$_POST['status'], trim($_POST['note'] ?? ''), $leadId]);
-            if ($_POST['status'] === 'Closed_Won') { header('Location: contracts.php?lead_id='.$leadId); exit; }
+            if ($_POST['status'] === 'Closed_Won') {
+                header('Location: contracts.php?lead_id=' . $leadId);
+                exit;
+            }
             $notice = 'Đã cập nhật lead.';
         }
     }
@@ -99,7 +102,7 @@ $settings = $pdo->query('SELECT * FROM settings')->fetchAll(); ?>
                                         <td><?= e($l['service_type']) ?><br><small><?= e($l['budget']) ?></small></td>
                                         <td><?= e($l['created_at']) ?></td>
                                         <td>
-                                            <form method="post" class="d-flex gap-1"><input type="hidden" name="csrf" value="<?= csrf() ?>"><input type="hidden" name="action" value="lead"><input type="hidden" name="id" value="<?= $l['id'] ?>"><select name="status" class="form-select form-select-sm"><?php foreach (['New', 'In-progress', 'Closed_Won', 'Cancelled'] as $x): ?><option value="<?= $x ?>" <?= $l['status'] === $x ? 'selected' : '' ?>><?= $x === 'Closed_Won' ? 'Đã chốt' : $x ?></option><?php endforeach ?></select><input name="note" value="<?= e($l['note']) ?>" class="form-control form-control-sm" placeholder="Ghi chú"><button class="btn btn-sm btn-primary">Lưu</button></form><?php if($l['status']==='Closed_Won'): ?><a class="btn btn-sm btn-success mt-1" href="contracts.php?lead_id=<?=$l['id']?>">Tạo / Xem Hợp Đồng</a><?php endif ?>
+                                            <form method="post" class="d-flex gap-1"><input type="hidden" name="csrf" value="<?= csrf() ?>"><input type="hidden" name="action" value="lead"><input type="hidden" name="id" value="<?= $l['id'] ?>"><select name="status" class="form-select form-select-sm"><?php foreach (['New', 'In-progress', 'Closed_Won', 'Cancelled'] as $x): ?><option value="<?= $x ?>" <?= $l['status'] === $x ? 'selected' : '' ?>><?= $x === 'Closed_Won' ? 'Đã chốt' : $x ?></option><?php endforeach ?></select><input name="note" value="<?= e($l['note']) ?>" class="form-control form-control-sm" placeholder="Ghi chú"><button class="btn btn-sm btn-primary">Lưu</button></form><?php if ($l['status'] === 'Closed_Won'): ?><a class="btn btn-sm btn-success mt-1" href="contracts.php?lead_id=<?= $l['id'] ?>">Tạo / Xem Hợp Đồng</a><?php endif ?>
                                         </td>
                                     </tr><?php endforeach ?></tbody>
                         </table>

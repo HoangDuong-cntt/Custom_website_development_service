@@ -99,7 +99,7 @@ if (!$contract) {
     </div>
     <article class="paper">
         <div class="contract-head">
-            <img class="contract-logo" src="../<?= e(SITE_LOGO_FILE) ?>" alt="HDTECH">
+            <img class="contract-logo" src="../<?= e(SITE_LOGO_FILE) ?>" alt="DHDTECH">
             <div class="contract-title">
                 <strong>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</strong><br>
                 <strong>Độc lập - Tự do - Hạnh phúc</strong>

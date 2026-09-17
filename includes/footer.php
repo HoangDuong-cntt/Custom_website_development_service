@@ -2,8 +2,8 @@
     <div class="container">
         <div class="row g-4">
             <div class="col-md-6 col-lg-4">
-                <a class="brand-logo brand-logo-footer" href="index.php" aria-label="HDTECH - Trang chủ">
-                    <img src="<?= e(SITE_LOGO_FILE) ?>" alt="HDTECH" class="site-logo site-logo-footer">
+                <a class="brand-logo brand-logo-footer" href="index.php" aria-label="DHDTECH - Trang chủ">
+                    <img src="<?= e(SITE_LOGO_FILE) ?>" alt="DHDTECH" class="site-logo site-logo-footer">
                 </a>
                 <p class="text-white-50 small mt-3 mb-0">Chuyên giải pháp thiết kế website chuẩn SEO, tối ưu chuyển đổi và đồng hành phát triển cùng doanh nghiệp.</p>
             </div>

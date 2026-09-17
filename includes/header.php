@@ -50,7 +50,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg bg-white sticky-top border-bottom">
-        <div class="container"><a class="navbar-brand brand-logo" href="index.php" aria-label="HDTECH - Trang chủ"><img src="<?= e(SITE_LOGO_FILE) ?>" alt="HDTECH" class="site-logo site-logo-header"></a>
+        <div class="container"><a class="navbar-brand brand-logo" href="index.php" aria-label="DHDTECH - Trang chủ"><img src="<?= e(SITE_LOGO_FILE) ?>" alt="DHDTECH" class="site-logo site-logo-header"></a>
             <div class="d-flex align-items-center gap-2 order-lg-last"><button type="button" class="theme-toggle" data-theme-toggle onclick="window.hdtToggleTheme()" aria-label="Bật chế độ tối" aria-pressed="false"><i class="bi bi-sun-fill theme-icon theme-icon-sun" aria-hidden="true"></i><i class="bi bi-moon-stars-fill theme-icon theme-icon-moon" aria-hidden="true"></i><span class="visually-hidden">Chuyển đổi giao diện sáng tối</span></button><button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button></div>
             <div id="nav" class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">

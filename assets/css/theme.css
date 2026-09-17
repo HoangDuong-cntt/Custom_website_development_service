@@ -1,23 +1,29 @@
 :root {
-    --bg-color: #ffffff;
-    --text-color: #0e1b42;
-    --muted-color: #64748b;
+    --bg-color: #f5f9ff;
+    --text-color: #0b1734;
+    --muted-color: #5d6d8f;
     --card-bg: #ffffff;
-    --surface-bg: #f8fafc;
-    --border-color: #dbe3ef;
-    --shadow-color: rgba(14, 27, 66, .13);
+    --surface-bg: #eef5ff;
+    --border-color: #d9e6ff;
+    --shadow-color: rgba(11, 23, 52, .14);
+    --brand-primary: #1f5ef3;
+    --brand-secondary: #49d6ff;
+    --brand-deep: #071a38;
     color-scheme: light;
 }
 
 :root[data-theme="dark"],
 :root.dark {
-    --bg-color: #171b24;
-    --text-color: #e7edf7;
-    --muted-color: #aab5c7;
-    --card-bg: #222936;
-    --surface-bg: #1d222d;
-    --border-color: #3b4658;
-    --shadow-color: rgba(0, 0, 0, .34);
+    --bg-color: #0a1222;
+    --text-color: #eaf5ff;
+    --muted-color: #a7bbd9;
+    --card-bg: #101b2e;
+    --surface-bg: #13213b;
+    --border-color: #223557;
+    --shadow-color: rgba(0, 0, 0, .38);
+    --brand-primary: #66a4ff;
+    --brand-secondary: #57d4ff;
+    --brand-deep: #071a38;
     color-scheme: dark;
 }
 

@@ -276,4 +276,4 @@ composer install
 
 ## Bản Quyền & Giấy Phép
 
-Dự án được phân phối dưới giấy phép **MIT License**.
+Dự án được phân phối dưới giấy phép **Apache License**.
